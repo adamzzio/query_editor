@@ -6,6 +6,9 @@ import psycopg2
 # - Web Apps
 import streamlit as st
 
+# ===== Load Secrets =====
+uri = st.secrets['uri']
+
 # ===== Set Title =====
 st.title('Query Editor')
 
@@ -30,7 +33,7 @@ if st.button('Submit'):
         try:
             # Koneksi ke database PostgreSQL
             conn = psycopg2.connect(
-                "postgresql://querydb_owner:npg_XK1OLnZRxBu9@ep-floral-hill-a4jvz625-pooler.us-east-1.aws.neon.tech/querydb?sslmode=require"
+                uri
             )
             # Menjalankan query yang dimasukkan oleh pengguna
             df = pd.read_sql(query_input, conn)
