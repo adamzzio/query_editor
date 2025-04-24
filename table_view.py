@@ -6,6 +6,9 @@ import psycopg2
 # - Web Apps
 import streamlit as st
 
+# ===== Load Secrets =====
+uri = st.secrets['uri']
+
 # ===== Set Title =====
 st.title('Table View')
 
@@ -28,7 +31,7 @@ def get_table_names():
     try:
         # Koneksi ke database PostgreSQL
         conn = psycopg2.connect(
-            "postgresql://querydb_owner:npg_XK1OLnZRxBu9@ep-floral-hill-a4jvz625-pooler.us-east-1.aws.neon.tech/querydb?sslmode=require"
+            uri
         )
         cur = conn.cursor()
 
@@ -70,7 +73,7 @@ if table_names:
                 try:
                     # Koneksi kembali untuk mengambil data dari tabel yang dipilih
                     conn = psycopg2.connect(
-                        "postgresql://querydb_owner:npg_XK1OLnZRxBu9@ep-floral-hill-a4jvz625-pooler.us-east-1.aws.neon.tech/querydb?sslmode=require"
+                        uri
                     )
                     query = f"SELECT * FROM {table_name};"
                     df = pd.read_sql(query, conn)
