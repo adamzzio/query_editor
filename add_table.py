@@ -9,6 +9,9 @@ import streamlit as st
 # - Extras
 import re
 
+# ===== Load Secrets =====
+uri = st.secrets['uri']
+
 # ===== Set Title =====
 st.title('Add Table')
 
@@ -94,7 +97,7 @@ if st.button('Submit'):
             try:
                 # Koneksi ke database PostgreSQL
                 conn = psycopg2.connect(
-                    "postgresql://querydb_owner:npg_XK1OLnZRxBu9@ep-floral-hill-a4jvz625-pooler.us-east-1.aws.neon.tech/querydb?sslmode=require"
+                    uri
                 )
                 cur = conn.cursor()
 
