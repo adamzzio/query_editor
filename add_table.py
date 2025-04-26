@@ -44,7 +44,7 @@ def determine_column_type(dtype):
     elif dtype == 'float64':  # Floating point type
         return "FLOAT"
     elif dtype == 'int64':  # Integer type
-        return "INT"
+        return "BIGINT"
     elif dtype == 'bool':  # Boolean type
         return "BOOLEAN"
     elif dtype == 'datetime64[ns]':  # Datetime type
