@@ -13,7 +13,7 @@ uri = st.secrets['uri']
 st.title('Table View')
 
 # ===== Set Subheader =====
-st.subheader('View your data!')
+st.subheader('ദ്ദി/ᐠ｡‸｡ᐟ\')
 
 st.markdown('<hr>', unsafe_allow_html=True)
 
