@@ -16,7 +16,7 @@ uri = st.secrets['uri']
 st.title('Add Table')
 
 # ===== Set Subheader =====
-st.subheader('Add your data to the table!')
+st.subheader('(•˕ •マ.ᐟ')
 
 st.markdown('<hr>', unsafe_allow_html=True)
 
