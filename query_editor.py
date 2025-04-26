@@ -13,7 +13,7 @@ uri = st.secrets['uri']
 st.title('Query Editor')
 
 # ===== Set Subheader =====
-st.subheader('Query Engine for your data!')
+st.subheader('⎛⎝ ≽  >  ⩊   < ≼ ⎠⎞')
 
 st.markdown('<hr>', unsafe_allow_html=True)
 
