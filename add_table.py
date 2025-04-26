@@ -47,6 +47,8 @@ def determine_column_type(dtype):
         return "INT"
     elif dtype == 'bool':  # Boolean type
         return "BOOLEAN"
+    elif dtype == 'datetime64[ns]':  # Datetime type
+        return "DATE"  # We'll handle the formatting separately
     else:
         return "VARCHAR"  # Default to VARCHAR if the type is unknown
 
@@ -65,6 +67,10 @@ if st.button('Submit'):
         if validate_input(table_input):
             st.success("Input valid!")
             df = pd.read_excel(data)
+            # Menjamin format tanggal konsisten dalam bentuk Short Date (DD/MM/YYYY)
+            for col in df.select_dtypes(include=['datetime64[ns]']).columns:
+                df[col] = df[col].dt.strftime('%d/%m/%Y')  # Format ulang ke DD/MM/YYYY
+                
             st.write(f'Table Name: {table_input}')
             st.dataframe(df, use_container_width=True)
 
