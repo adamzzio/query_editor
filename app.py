@@ -10,9 +10,11 @@ add_table_page = st.Page("add_table.py", title="Add Table", icon=":material/play
 table_view_page = st.Page("table_view.py", title="Table View", icon=":material/table:")
 query_editor_page = st.Page("query_editor.py", title="Query Editor", icon=":material/edit_note:")
 python_page = st.Page("python_support.py", title='Python Support', icon=":material/terminal:")
+notes_page = st.Page("notes.py", title='Notes', icon=":material/summarize:")
 
 # ===== Set Navigation =====
 pg = st.navigation([dashboard_page, add_table_page,
                     table_view_page, query_editor_page,
-                    python_page])
+                    python_page, notes_page])
+
 pg.run()
