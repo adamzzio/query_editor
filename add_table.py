@@ -88,10 +88,10 @@ if st.button('Submit'):
             st.code(drop_table_query, language='sql')
             st.code(create_table_query, language='sql')
 
-            # Replace NaN with None (which will translate to NULL in SQL)
+            # Ganti NaN dengan None agar bisa dikonversi ke NULL
             df = df.where(pd.notnull(df), None)
             
-            # Create SQL Query for INSERT INTO
+            # Buat list query insert yang aman dari NaN
             insert_queries = []
             for _, row in df.iterrows():
                 row_values = []
@@ -99,12 +99,10 @@ if st.button('Submit'):
                     if value is None:
                         row_values.append("NULL")
                     elif isinstance(value, str):
-                        # Escape single quotes to prevent SQL injection or syntax errors
-                        value_escaped = value.replace("'", "''")
+                        value_escaped = value.replace("'", "''")  # escape quote
                         row_values.append(f"'{value_escaped}'")
                     else:
                         row_values.append(str(value))
-                
                 values = ', '.join(row_values)
                 insert_query = f"INSERT INTO {table_input} ({', '.join(df.columns)}) VALUES ({values});"
                 insert_queries.append(insert_query)
