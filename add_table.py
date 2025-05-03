@@ -88,18 +88,17 @@ if st.button('Submit'):
             st.code(drop_table_query, language='sql')
             st.code(create_table_query, language='sql')
 
-            # Ganti NaN dengan None agar bisa dikonversi ke NULL
+            # Pastikan NaN diganti dengan None (Python's null object)
             df = df.where(pd.notnull(df), None)
             
-            # Buat list query insert yang aman dari NaN
             insert_queries = []
             for _, row in df.iterrows():
                 row_values = []
                 for value in row:
-                    if value is None:
+                    if value is None or (isinstance(value, float) and pd.isna(value)):
                         row_values.append("NULL")
                     elif isinstance(value, str):
-                        value_escaped = value.replace("'", "''")  # escape quote
+                        value_escaped = value.replace("'", "''")
                         row_values.append(f"'{value_escaped}'")
                     else:
                         row_values.append(str(value))
