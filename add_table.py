@@ -88,10 +88,24 @@ if st.button('Submit'):
             st.code(drop_table_query, language='sql')
             st.code(create_table_query, language='sql')
 
+            # Replace NaN with None (which will translate to NULL in SQL)
+            df = df.where(pd.notnull(df), None)
+            
             # Create SQL Query for INSERT INTO
             insert_queries = []
             for _, row in df.iterrows():
-                values = ', '.join([f"'{str(value)}'" if isinstance(value, str) else str(value) for value in row])
+                row_values = []
+                for value in row:
+                    if value is None:
+                        row_values.append("NULL")
+                    elif isinstance(value, str):
+                        # Escape single quotes to prevent SQL injection or syntax errors
+                        value_escaped = value.replace("'", "''")
+                        row_values.append(f"'{value_escaped}'")
+                    else:
+                        row_values.append(str(value))
+                
+                values = ', '.join(row_values)
                 insert_query = f"INSERT INTO {table_input} ({', '.join(df.columns)}) VALUES ({values});"
                 insert_queries.append(insert_query)
 
